@@ -1,0 +1,119 @@
+﻿@model VelocityTrackingTest.Models.ProjectModel
+<div class="card">
+    <div class="card-header">
+        <h5 class="text-left">Velocity Tracking</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h5 class="text-left text-success">Project Details</h5><hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Projects" class="control-label"></label>
+                        <select asp-for="Projects" class="form-control">
+                            <option value="">--Select A Project--</option>
+                            <option value="TaskA">Task A</option>
+                            <option value="TaskB">Task B</option>
+                            <option value="TaskC">Task C</option>
+                        </select>
+                        <span asp-validation-for="Projects" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="taskTitle" class="control-label"></label>
+                        <input asp-for="taskTitle" class="form-control" />
+                        <span asp-validation-for="taskTitle" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="taskDescription" class="control-label"></label>
+                <textarea asp-for="taskDescription" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="taskDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="totalEstimate" class="control-label"></label>
+                <input id="totest" asp-for="totalEstimate" class="form-control" />
+                <span asp-validation-for="totalEstimate" class="text-danger"></span>
+            </div>
+            <h5 class="text-left text-success">Employee Details</h5><hr />
+            <table id="mytable">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label asp-for="Employee" class="control-label"></label>
+                                <select asp-for="Employee" class="form-control">
+                                    <option value="">--Select Employee--</option>
+                                    <option value="empA">Employee A</option>
+                                    <option value="empB">Employee B</option>
+                                    <option value="empC">Employee C</option>
+                                </select>
+                                <span asp-validation-for="Employee" class="text-danger"></span>
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div class="form-group">
+                                <label id="esthrs" asp-for="estimatedHours" class="control-label"></label>
+                                <input asp-for="estimatedHours" class="form-control" />
+                                <span asp-validation-for="estimatedHours" class="text-danger"></span>
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div class="form-group">
+                                <label asp-for="actualHours" class="control-label"></label>
+                                <input asp-for="actualHours" class="form-control" />
+                                <span asp-validation-for="actualHours" class="text-danger"></span>
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <a href="#" id="addRow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                                </svg>
+                            </a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <div class="form-group text-end">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("#addRow").click(function () {
+            $("#mytable").each(function () {
+                var tds = '<tr>';
+                jQuery.each($('tr:last td', this), function () {
+                    tds += '<td>' + $(this).html() + '</td>';
+                });
+                tds += '</tr>';
+                if ($('tbody', this).length > 0) {
+                    $('tbody', this).append(tds);
+                } else {
+                    $(this).append(tds);
+                }
+            });
+        });
+    </script>
